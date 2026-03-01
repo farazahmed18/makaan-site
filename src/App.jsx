@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Home, Users, MapPin, ArrowRight, Star, Wifi, ShieldCheck, Zap, Sofa, Train, Mail, Phone, X, ChevronLeft, ChevronRight, Footprints, Share2, School } from 'lucide-react';
+import { Home, MapPin, ArrowRight, Phone, X, ChevronLeft, ChevronRight, Activity, Waves, Gamepad2, Film, Sun, Bus, BedSingle, Bath, Wifi, Droplets, Sparkles, Utensils, Maximize, Monitor, Archive, Box, CheckCircle2, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Lenis from '@studio-freight/lenis';
 
@@ -15,14 +15,6 @@ const Reveal = ({ children, delay = 0 }) => (
   </motion.div>
 );
 
-const popHover = {
-  hover: { y: -10, scale: 1.02, transition: { type: "spring", stiffness: 400, damping: 15 } }
-};
-
-const iconPop = {
-  hover: { y: -8, scale: 1.1, rotate: 2, transition: { type: "spring", stiffness: 400, damping: 10 } }
-};
-
 // --- Image Slider Modal ---
 const ImageModal = ({ images, isOpen, onClose }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -34,7 +26,7 @@ const ImageModal = ({ images, isOpen, onClose }) => {
       {isOpen && (
         <motion.div 
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4"
+          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4"
         >
           <button onClick={onClose} className="absolute top-6 right-6 text-white/50 hover:text-white z-[110] transition-colors"><X size={40} /></button>
           <button onClick={prev} className="absolute left-4 md:left-10 text-white/50 hover:text-white z-[110] transition-colors"><ChevronLeft size={50} /></button>
@@ -46,12 +38,12 @@ const ImageModal = ({ images, isOpen, onClose }) => {
             animate={{ opacity: 1, scale: 1 }}
             className="h-[85vh] w-full max-w-4xl flex items-center justify-center"
           >
-            <img src={images[currentIndex]} className="max-h-full max-w-full object-contain rounded-2xl shadow-2xl border border-white/5" alt="Room View" />
+            <img src={images[currentIndex]} className="max-h-full max-w-full object-contain shadow-2xl border border-white/5" alt="Room View" />
           </motion.div>
           
           <div className="absolute bottom-10 flex gap-2">
             {images.map((_, i) => (
-              <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === currentIndex ? 'w-8 bg-blue-500' : 'w-2 bg-white/20'}`} />
+              <div key={i} className={`h-1.5 transition-all duration-300 ${i === currentIndex ? 'w-8 bg-[#b91c1c]' : 'w-2 bg-white/20'}`} />
             ))}
           </div>
         </motion.div>
@@ -60,53 +52,64 @@ const ImageModal = ({ images, isOpen, onClose }) => {
   );
 };
 
-// --- Room Card ---
-const RoomCard = ({ title, price, location, metro, images, available = true }) => {
+// --- Horizontal Room Card ---
+const HorizontalRoomCard = ({ title, price, features, images, onEnquire }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
-      <motion.div 
-        whileHover={available ? "hover" : {}}
-        whileTap={available ? { scale: 0.98 } : {}}
-        variants={available ? popHover : {}} // Disable hover effect if sold out
-        onClick={() => available && setIsModalOpen(true)}
-        className={`bg-white rounded-[2.5rem] overflow-hidden border border-gray-100 shadow-sm transition-all ${available ? 'hover:shadow-2xl cursor-pointer' : 'opacity-40 grayscale pointer-events-none cursor-not-allowed border-gray-200'}`}
-      >
-        <div className="relative aspect-[4/5] overflow-hidden bg-slate-100 group">
-          <img src={images[0]} alt={title} className={`w-full h-full object-cover transition-transform duration-1000 ${available ? 'group-hover:scale-110' : ''}`} />
-          {!available && (
-            <div className="absolute inset-0 bg-slate-900/60 flex items-center justify-center">
-              <span className="bg-red-600 text-white px-8 py-3 rounded-full font-black uppercase text-[12px] tracking-[0.2em] shadow-2xl ring-4 ring-red-600/20">Sold Out</span>
+      <Reveal>
+        <div className="flex flex-col lg:flex-row border-[3px] border-[#b91c1c] bg-white mb-10 group">
+          
+          {/* Left Side: Image */}
+          <div className="w-full lg:w-[45%] relative aspect-video lg:aspect-auto overflow-hidden cursor-pointer" onClick={() => setIsModalOpen(true)}>
+            <img src={images[0]} alt={title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-black/10 hover:bg-black/0 transition-colors flex items-center justify-between px-4">
+               <div className="w-8 h-8 rounded-full bg-white/80 flex items-center justify-center"><ChevronLeft size={20} className="text-slate-600"/></div>
+               <div className="w-8 h-8 rounded-full bg-white/80 flex items-center justify-center"><ChevronRight size={20} className="text-slate-600"/></div>
             </div>
-          )}
-          {available && (
-            <span className="absolute top-6 left-6 bg-blue-600 text-white px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg">Available</span>
-          )}
-        </div>
-        <div className="p-8">
-          <h3 className="text-2xl font-display font-bold text-slate-900 mb-4 tracking-tight">{title}</h3>
-          <div className="space-y-3 mb-8 text-blue-600 font-bold text-xs uppercase tracking-wider">
-            <div className="flex items-center gap-3"><MapPin className="w-4 h-4" /> {location}</div>
-            <div className="flex items-center gap-3"><Users className="w-4 h-4" /> 3 Person Sharing</div>
-            {metro && <div className="flex items-center gap-3"><Footprints className="w-4 h-4" /> {metro}</div>}
           </div>
-          <div className="flex items-center justify-between border-t border-gray-50 pt-6">
-            <p className="text-3xl font-display font-black text-blue-600">AED {price}<span className="text-slate-300 text-xs font-normal">/mo</span></p>
-            {available ? (
-              <div className="bg-slate-50 p-4 rounded-2xl text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-sm"><ArrowRight size={20} /></div>
-            ) : (
-              <span className="text-slate-400 font-black uppercase text-[10px] tracking-widest">Booked</span>
-            )}
+          
+          {/* Right Side: Content */}
+          <div className="w-full lg:w-[55%] p-8 md:p-10 flex flex-col">
+            <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-wide uppercase">{title}</h3>
+            
+            {/* Icon Grid */}
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-y-6 gap-x-2 mb-8">
+              {features.map((feature, idx) => (
+                <div key={idx} className="flex flex-col items-center text-center">
+                  <feature.icon className="w-7 h-7 mb-2 text-slate-800" strokeWidth={1.5} />
+                  <span className="text-[10px] uppercase text-slate-500 font-bold leading-tight px-1">{feature.name}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Price & Button Floor */}
+            <div className="border-t border-gray-200 pt-6 mt-auto flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+              <div>
+                <span className="text-xs text-slate-500 font-bold">Starting from</span><br/>
+                <span className="text-3xl font-black text-slate-900">AED {price}</span> 
+                <span className="text-xs text-slate-900 font-bold"> : per person per month</span>
+                <p className="text-[10px] text-slate-500 mt-1 italic">All Inclusive <br/>Subject to VAT & applicable levies</p>
+              </div>
+              <button 
+                onClick={onEnquire}
+                className="bg-black text-white px-8 py-4 text-sm font-bold hover:bg-[#b91c1c] transition-colors flex items-center justify-center gap-2 uppercase tracking-widest w-full sm:w-auto"
+              >
+                Enquire <ArrowRight size={16} />
+              </button>
+            </div>
           </div>
+
         </div>
-      </motion.div>
-      {available && <ImageModal images={images} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
+      </Reveal>
+      <ImageModal images={images} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 };
 
 export default function App() {
   const [status, setStatus] = useState('');
+  
   useEffect(() => {
     const lenis = new Lenis({ duration: 1.2 });
     function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
@@ -129,167 +132,236 @@ export default function App() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Room Features
+  const standardFeatures = [
+    { name: "Study Desk", icon: Monitor },
+    { name: "Single Bed", icon: BedSingle },
+    { name: "En-suite Bath", icon: Bath },
+    { name: "In-room Fridge", icon: Box },
+    { name: "Wardrobe", icon: Archive },
+    { name: "High Speed Wifi", icon: Wifi },
+    { name: "Daily Water", icon: Droplets },
+    { name: "Cleaning", icon: Sparkles },
+    { name: "Shared Kitchen", icon: Utensils }
+  ];
+
+  const premiumFeatures = [
+    { name: "Bigger Living Area", icon: Maximize },
+    ...standardFeatures
+  ];
+
   return (
-    <div className="font-sans selection:bg-blue-600 selection:text-white antialiased text-slate-900 bg-white">
+    <div className="font-sans selection:bg-[#b91c1c] selection:text-white antialiased text-slate-900 bg-white">
       {/* Navbar */}
-      <nav className="fixed w-full bg-white/80 backdrop-blur-xl z-50 border-b border-gray-100/50">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2 cursor-pointer group" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg"><Home className="text-white w-4 h-4" /></div>
-            <span className="text-xl font-display font-black text-slate-900 tracking-tighter uppercase italic">Makaan</span>
+      <nav className="fixed w-full bg-white z-50 border-b-4 border-[#b91c1c] shadow-sm">
+        <div className="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+            <span className="text-3xl font-black text-[#b91c1c] tracking-tighter uppercase italic">Makaan</span>
           </div>
-          <div className="hidden md:flex items-center gap-8 font-bold text-slate-900 text-[10px] uppercase tracking-[0.2em]">
-            <button onClick={() => scrollTo('living')} className="hover:text-blue-600 transition-colors">Living</button>
-            <button onClick={() => scrollTo('facilities')} className="hover:text-blue-600 transition-colors">Why Us</button>
-            <button onClick={() => scrollTo('contact')} className="hover:text-blue-600 transition-colors">Contact</button>
-            <button onClick={() => scrollTo('contact')} className="bg-slate-900 text-white px-6 py-2 rounded-xl text-[11px] font-black hover:bg-blue-600 transition-all">Claim Spot</button>
+          <div className="hidden md:flex items-center gap-8 font-black text-slate-900 text-[11px] uppercase tracking-[0.15em]">
+            <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-[#b91c1c] transition-colors py-8 border-b-4 border-transparent hover:border-[#b91c1c]">Home</button>
+            <button onClick={() => scrollTo('living')} className="hover:text-[#b91c1c] transition-colors py-8 border-b-4 border-transparent hover:border-[#b91c1c]">Living</button>
+            <button onClick={() => scrollTo('facilities')} className="hover:text-[#b91c1c] transition-colors py-8 border-b-4 border-transparent hover:border-[#b91c1c]">Facilities</button>
+            <button onClick={() => scrollTo('contact')} className="hover:text-[#b91c1c] transition-colors py-8 border-b-4 border-transparent hover:border-[#b91c1c]">Contact Us</button>
+            <button onClick={() => scrollTo('contact')} className="bg-[#b91c1c] text-white px-6 py-3 text-[11px] font-black hover:bg-black transition-all ml-4">STUDENT PORTAL</button>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-24 pb-20 max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-        <Reveal>
-          <div className="flex gap-4 mb-4">
-            <motion.div variants={iconPop} whileHover="hover" className="flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full text-blue-600 font-bold text-[10px] uppercase tracking-wider cursor-default shadow-sm"><Star size={14}/> Community</motion.div>
-            <motion.div variants={iconPop} whileHover="hover" className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full text-slate-900 font-bold text-[10px] uppercase tracking-wider cursor-default shadow-sm"><Zap size={14}/> Premium</motion.div>
-            <motion.div variants={iconPop} whileHover="hover" className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full text-slate-900 font-bold text-[10px] uppercase tracking-wider cursor-default shadow-sm"><MapPin size={14}/> Al Barsha</motion.div>
+      <section className="pt-20">
+        <div className="relative h-[65vh] w-full bg-slate-900 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=2000" className="w-full h-full object-cover opacity-60" alt="Makaan Student Housing" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
+             <div className="bg-white/95 backdrop-blur px-8 py-4 mb-8 border border-white/20 shadow-2xl">
+                <h1 className="text-4xl md:text-5xl font-black tracking-widest uppercase text-slate-900">Affordable Student Housing</h1>
+             </div>
+             <button onClick={() => scrollTo('living')} className="bg-[#b91c1c] text-white font-bold uppercase tracking-widest px-12 py-4 hover:bg-black transition-colors shadow-2xl border-2 border-[#b91c1c]">
+                See Rooms
+             </button>
           </div>
-          
-          <h1 className="text-7xl md:text-8xl font-display font-black leading-[0.9] tracking-tighter mb-8 uppercase italic text-slate-900">Premium <br /><span className="text-slate-400 font-light italic text-6xl md:text-8xl">STUDENT CO-LIVING.</span></h1>
-          <p className="text-xl text-slate-500 font-light mb-10 max-w-md italic leading-relaxed">Luxury student housing, 15 minutes from Dubai Knowledge Park.</p>
-          <div className="flex gap-4">
-            <button onClick={() => scrollTo('living')} className="bg-blue-600 text-white px-10 py-5 rounded-2xl font-black text-lg shadow-2xl hover:bg-slate-900 transition-all uppercase tracking-tight active:scale-95">Explore Living</button>
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              onClick={() => scrollTo('contact')} 
-              className="bg-white border-2 border-slate-100 text-slate-900 px-10 py-5 rounded-2xl font-black text-lg shadow-sm hover:bg-slate-50 transition-all uppercase tracking-tight active:scale-95"
-            >
-              Enquire Now
-            </motion.button>
-          </div>
-        </Reveal>
-        <div className="relative h-[600px] rounded-[4rem] overflow-hidden shadow-2xl border-[15px] border-white">
-          <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover" alt="Makaan Luxury" />
         </div>
       </section>
 
-      {/* Why Makaan Section */}
-      <section id="facilities" className="py-24 bg-gradient-to-b from-blue-600 to-blue-700 text-white relative">
-        <div className="max-w-6xl mx-auto px-6 relative z-10">
-          <Reveal>
-            <div className="text-center mb-16">
-              <h2 className="text-5xl font-display font-black mb-4 tracking-tighter uppercase italic text-white">Why Makaan?</h2>
-              <p className="text-blue-100 max-w-xl mx-auto text-sm font-light leading-relaxed uppercase tracking-widest">High-performance living for high-performance students.</p>
+      {/* Homepage USPs Section (Premium Myriad Style) */}
+      <section className="py-24 max-w-[1200px] mx-auto px-6">
+         <Reveal>
+            <div className="flex flex-col lg:flex-row shadow-2xl">
+              
+              {/* Left Side: The USPs */}
+              <div className="w-full lg:w-1/2 p-12 md:p-16 bg-[#b91c1c] text-white flex flex-col justify-center">
+                <h2 className="text-4xl font-black mb-4 uppercase tracking-tight">Why Us?</h2>
+                
+                {/* Myriad Signature Underline */}
+                <div className="w-16 h-[3px] bg-white mb-10"></div>
+                
+                <p className="text-white/90 mb-10 text-sm leading-relaxed font-medium pr-4">
+                  At Makaan Dubai, we put your comfort and convenience first. We provide you with a student housing community where you can live, work, and play in a safe and inspiring environment.
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 mb-12">
+                  {[
+                    "Community-Driven", "Affordable Housing", "Heart of Dubai", 
+                    "Safety & Security", "Leisure & Entertainment", "No Stress Living", 
+                    "Furnished Rooms", "Sports & Fitness", "Free Transportation"
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-4 border-b border-white/20 pb-3">
+                      <div className="w-1.5 h-1.5 bg-white rounded-sm"></div>
+                      <span className="text-[11px] font-bold uppercase tracking-widest">{item}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <button onClick={() => scrollTo('living')} className="bg-black text-white px-10 py-4 text-sm font-bold hover:bg-white hover:text-black transition-colors uppercase tracking-widest w-fit flex items-center gap-2">
+                  See Rooms <ArrowRight size={16} />
+                </button>
+              </div>
+              
+              {/* Right Side: Image */}
+              <div className="w-full lg:w-1/2 min-h-[500px]">
+                <img src="/room1.jpeg" alt="Makaan Lifestyle" className="w-full h-full object-cover" />
+              </div>
+
             </div>
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                { icon: Users, t: "Live & Network", d: "Join a thriving community of global students." },
-                { icon: School, t: "Prime Location", d: "Get to and from classes in just 15 minutes." },
-                { icon: ShieldCheck, t: "24/7 Security", d: "On-site safety teams around the clock." },
-                { icon: Zap, t: "All-Inclusive", d: "Utilities, ultra-fast WIFI and AC all included." },
-                { icon: Train, t: "Metro Connectivity", d: "Only 5 mins from Insurance Market station." },
-                { icon: Sofa, t: "Fully Furnished", d: "Move-in ready and hassle free." }
-              ].map((item, i) => (
-                <motion.div key={i} variants={popHover} whileHover="hover" whileTap="hover" className="bg-white p-8 rounded-[2.5rem] shadow-xl">
-                  <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center mb-6 text-blue-600"><item.icon size={24} /></div>
-                  <h4 className="text-xl font-display font-bold mb-3 text-slate-900">{item.t}</h4>
-                  <p className="text-slate-500 text-sm font-light leading-relaxed">{item.d}</p>
-                </motion.div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
+         </Reveal>
       </section>
 
       {/* Living Section */}
-      <section id="living" className="py-32 max-w-6xl mx-auto px-6">
+      <section id="living" className="py-20 bg-slate-50 border-t border-slate-200">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <Reveal>
+            <div className="mb-12 border-b-4 border-[#b91c1c] w-fit pb-2">
+              <h2 className="text-4xl font-black tracking-tight uppercase text-slate-900">Living</h2>
+            </div>
+          </Reveal>
+          
+          <HorizontalRoomCard 
+              title="Standard Sharing" 
+              price="2,700" 
+              features={standardFeatures}
+              images={["/room1.jpeg", "/room2.jpeg"]} 
+              onEnquire={() => scrollTo('contact')}
+          />
+          
+          <HorizontalRoomCard 
+              title="Premium Sharing" 
+              price="3,650" 
+              features={premiumFeatures}
+              images={["/room3.jpeg", "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800"]} 
+              onEnquire={() => scrollTo('contact')}
+          />
+        </div>
+      </section>
+
+      {/* Facilities Section */}
+      <section id="facilities" className="py-24 max-w-[1200px] mx-auto px-6">
         <Reveal>
-          <div className="flex items-center justify-between mb-20">
-            <h2 className="text-6xl font-display font-black tracking-tighter uppercase italic text-slate-950">Living Spaces</h2>
-            <div className="h-px flex-1 bg-slate-100 mx-10 hidden md:block"></div>
+          <div className="mb-16 border-b-4 border-[#b91c1c] w-fit pb-2">
+             <h2 className="text-4xl font-black tracking-tight uppercase text-[#b91c1c]">Facilities</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-12">
-            {/* THIS ONE IS AVAILABLE */}
-            <RoomCard 
-              title="Premium Shared" 
-              price="2,500" 
-              location="15 mins from Knowledge Park" 
-              metro="5 min walk from Insurance Market Metro Station" 
-              available={true}
-              images={["/room1.jpeg", "/room2.jpeg", "/room3.jpeg"]} 
-            />
-            {/* THESE TWO ARE SOLD OUT */}
-            <RoomCard 
-              title="Affordable Shared" 
-              price="1,999" 
-              location="30 mins from Knowledge Park" 
-              metro="5 min walk from Union Metro Station" 
-              available={false} 
-              images={["https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1000"]} 
-            />
-            <RoomCard 
-              title="Standard Shared" 
-              price="2,250" 
-              location="15 mins from Knowledge Park" 
-              metro="5 min walk from Insurance Market metro station" 
-              available={false} 
-              images={["https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=800"]} 
-            />
+          
+          {/* Grid of exactly 7 facilities from brief */}
+          <div className="flex flex-wrap justify-center gap-y-16 gap-x-12 text-center mb-16">
+            {[
+              { icon: Activity, t: "Sports Facilities" },
+              { icon: Zap, t: "Fitness and Health" },
+              { icon: Waves, t: "Swimming Pools" },
+              { icon: Gamepad2, t: "Game Rooms" },
+              { icon: Film, t: "Movie & Game Nights" },
+              { icon: Sun, t: "Recreational Terrace" },
+              { icon: Bus, t: "Shuttle Services" }
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col items-center w-[120px]">
+                <div className="w-20 h-20 rounded-full border-2 border-slate-200 flex items-center justify-center mb-4 hover:border-[#b91c1c] transition-colors">
+                   <item.icon className="w-10 h-10 text-slate-800" strokeWidth={1.5} />
+                </div>
+                <h4 className="text-[11px] font-bold text-slate-600 uppercase leading-tight">{item.t}</h4>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center border-t border-slate-200 pt-16">
+            <button onClick={() => scrollTo('living')} className="bg-[#b91c1c] text-white px-10 py-4 text-sm font-bold hover:bg-black transition-colors uppercase tracking-widest">
+                See Rooms
+            </button>
           </div>
         </Reveal>
       </section>
 
-      {/* Form Section */}
-      <section id="contact" className="py-32 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-20">
-          <Reveal>
-            <h2 className="text-7xl font-display font-black tracking-tighter mb-8 uppercase italic text-slate-900">Book <br /> Your Spot <span className="text-blue-600">.</span></h2>
-            <div className="space-y-6">
-               <div className="flex items-center gap-4 font-bold text-2xl text-slate-800"><Phone className="text-blue-600" /> +971 52 660 2999</div>
-               <div className="flex items-center gap-4 font-bold text-xl text-slate-800 break-all"><Mail className="text-blue-600 flex-shrink-0" /> sanat@securemyscholarship.com</div>
-               <div className="flex items-center gap-4 font-bold text-2xl text-slate-800"><MapPin className="text-blue-600" /> Al Barsha, Dubai</div>
-            </div>
-          </Reveal>
-          <form onSubmit={handleSubmit} className="bg-white p-12 rounded-[3.5rem] shadow-2xl border border-gray-100">
-            <div className="grid grid-cols-2 gap-6 mb-6">
-              <input name="firstName" placeholder="First Name" required className="p-5 rounded-2xl bg-slate-50 text-sm font-bold border-none outline-none focus:ring-2 ring-blue-100" />
-              <input name="lastName" placeholder="Last Name" required className="p-5 rounded-2xl bg-slate-50 text-sm font-bold border-none outline-none focus:ring-2 ring-blue-100" />
-            </div>
-            <div className="grid grid-cols-2 gap-6 mb-6">
-               <select name="gender" required className="p-5 rounded-2xl bg-slate-50 text-slate-400 text-sm font-bold outline-none focus:ring-2 ring-blue-100"><option value="">Gender</option><option>Male</option><option>Female</option></select>
-               <select name="institute" required className="p-5 rounded-2xl bg-slate-50 text-slate-400 text-sm font-bold outline-none focus:ring-2 ring-blue-100">
-                  <option value="">Institute</option>
-                  <option>University of Wollongong Dubai</option>
-                  <option>Middlesex University Dubai</option>
-                  <option>Heriot-Watt University Dubai</option>
-                  <option>De Montfort University Dubai</option>
-                  <option>Murdoch University Dubai</option>
-                  <option>Symbiosis International University</option>
-                  <option>Other</option>
+      {/* Contact Section (Full Inquiry Form from Brief) */}
+      <section id="contact" className="py-24 bg-slate-50 border-t border-slate-200">
+         <div className="max-w-[1200px] mx-auto px-6 grid md:grid-cols-2 gap-16">
+            <Reveal>
+               <div className="mb-10 border-b-4 border-[#b91c1c] w-fit pb-2">
+                 <h2 className="text-4xl font-black tracking-tight uppercase text-slate-900">Contact Us</h2>
+               </div>
+               <div className="space-y-8 text-slate-700">
+                  <div className="flex items-start gap-4">
+                     <MapPin className="text-[#b91c1c] mt-1" size={28}/>
+                     <span className="font-bold uppercase tracking-widest text-sm leading-relaxed">Makaan Housing<br/>Domus Indigo 5<br/>Dubai Production City</span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                     <Phone className="text-[#b91c1c]" size={28}/>
+                     <span className="font-bold uppercase tracking-widest text-xl">+971 52 660 2999</span>
+                  </div>
+               </div>
+            </Reveal>
+
+            <form onSubmit={handleSubmit} className="bg-white border-[3px] border-[#b91c1c] p-8 md:p-10 shadow-xl">
+               <h3 className="text-2xl font-black mb-8 uppercase tracking-wide">Inquiry Form</h3>
+               <div className="grid grid-cols-2 gap-4 mb-4">
+                 <input name="firstName" placeholder="First Name" required className="p-4 bg-slate-100 text-sm font-bold border-none outline-none focus:ring-2 ring-[#b91c1c] rounded-none" />
+                 <input name="lastName" placeholder="Last Name" required className="p-4 bg-slate-100 text-sm font-bold border-none outline-none focus:ring-2 ring-[#b91c1c] rounded-none" />
+               </div>
+               <input name="email" type="email" placeholder="Email Address" required className="w-full mb-4 p-4 bg-slate-100 text-sm font-bold border-none outline-none focus:ring-2 ring-[#b91c1c] rounded-none" />
+               <input name="phone" type="tel" placeholder="Contact Number" required className="w-full mb-4 p-4 bg-slate-100 text-sm font-bold border-none outline-none focus:ring-2 ring-[#b91c1c] rounded-none" />
+               
+               <select name="source" required className="w-full mb-8 p-4 bg-slate-100 text-slate-500 text-sm font-bold outline-none focus:ring-2 ring-[#b91c1c] rounded-none appearance-none">
+                 <option value="">How did you hear about us?</option>
+                 <option>University Rep</option>
+                 <option>Referral</option>
+                 <option>Instagram</option>
+                 <option>TikTok</option>
+                 <option>Other</option>
                </select>
-            </div>
-            <div className="grid grid-cols-2 gap-6 mb-6">
-               <select name="source" required className="p-5 rounded-2xl bg-slate-50 text-slate-400 text-sm font-bold outline-none focus:ring-2 ring-blue-100">
-                  <option value="">Heard via?</option>
-                  <option>University Rep</option>
-                  <option>Referral</option>
-                  <option>Instagram</option>
-                  <option>TikTok</option>
-                  <option>Other</option>
-               </select>
-               <input name="phone" type="tel" placeholder="Contact No. (Optional)" className="p-5 rounded-2xl bg-slate-50 text-sm font-bold border-none outline-none focus:ring-2 ring-blue-100" />
-            </div>
-            <input name="email" type="email" placeholder="Email Address" required className="w-full mb-6 p-5 rounded-2xl bg-slate-50 text-sm font-bold border-none outline-none focus:ring-2 ring-blue-100" />
-            <textarea name="requirements" placeholder="Tell us about your housing requirements..." rows="3" className="w-full mb-8 p-5 rounded-2xl bg-slate-50 text-sm font-bold border-none outline-none focus:ring-2 ring-blue-100"></textarea>
-            
-            <button className="w-full bg-slate-900 text-white py-6 rounded-2xl font-black text-xl hover:bg-blue-600 transition shadow-xl uppercase tracking-[0.2em] active:scale-95">Apply Now</button>
-            {status && <p className="mt-6 text-center text-blue-600 font-black text-xs uppercase animate-pulse">{status}</p>}
-          </form>
-        </div>
+               
+               <button className="w-full bg-[#b91c1c] text-white py-5 font-black text-sm hover:bg-black transition-colors uppercase tracking-widest">Send Inquiry</button>
+               {status && <p className="mt-4 text-center text-[#b91c1c] font-black text-xs uppercase">{status}</p>}
+            </form>
+         </div>
       </section>
 
-      <footer className="py-12 text-center text-[10px] font-black uppercase tracking-[0.5em] text-slate-300">Makaan © 2026 | Luxury Student Housing Al Barsha</footer>
+      {/* Footer */}
+      <footer className="bg-[#1a1a1a] text-white py-20">
+        <div className="max-w-[1200px] mx-auto px-6 grid md:grid-cols-4 gap-12 text-sm">
+          
+          <div>
+            <h4 className="text-lg font-black uppercase mb-6 text-white">Makaan.ae</h4>
+            <p className="text-gray-400 mb-2">Makaan Housing</p>
+            <p className="text-gray-400 mb-2">Domus Indigo 5</p>
+            <p className="text-gray-400 mb-6">Dubai Production City (UAE)</p>
+            <p className="font-bold text-white">+971 52 660 2999</p>
+          </div>
+
+          <div className="flex flex-col gap-3 font-bold text-gray-400">
+            <h4 className="text-lg font-black uppercase mb-3 text-white">Navigation</h4>
+            <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-white transition-colors text-left w-fit">Why Us</button>
+            <button onClick={() => scrollTo('living')} className="hover:text-white transition-colors text-left w-fit">Living</button>
+            <button onClick={() => scrollTo('facilities')} className="hover:text-white transition-colors text-left w-fit">Facilities</button>
+            <button onClick={() => scrollTo('contact')} className="hover:text-white transition-colors text-left w-fit">Contact Us</button>
+          </div>
+
+          <div className="flex flex-col gap-3 font-bold text-gray-400">
+             <h4 className="text-lg font-black uppercase mb-3 text-white">Support</h4>
+             <a href="#" className="hover:text-white transition-colors w-fit">Frequently Asked Questions</a>
+          </div>
+
+          <div className="flex flex-col justify-end">
+             <p className="text-xs text-slate-500 font-bold uppercase tracking-widest">Makaan © 2026</p>
+          </div>
+
+        </div>
+      </footer>
     </div>
   );
 }
