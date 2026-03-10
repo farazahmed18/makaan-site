@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 
 // Import the 4 pages
 import Home from './pages/Home';
@@ -17,6 +18,9 @@ const ScrollToTop = () => {
 };
 
 export default function App() {
+  // State to control the mobile menu
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <Router>
       <ScrollToTop />
@@ -27,31 +31,51 @@ export default function App() {
         <nav className="fixed w-full bg-[#F4F6F3] z-50 border-b-4 border-[#2C5F6E] shadow-sm">
           <div className="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
             
-            {/* Logo Section - High Visibility Version */}
-<Link to="/" className="flex items-center gap-2 h-full group overflow-visible">
-  {/* 1. The Brandmark (The "M" Icon) */}
-  <img 
-    src="/makaan-brandmark-removebg-preview.png" 
-    alt="Makaan Icon" 
-    className="h-28 w-auto object-contain transition-transform duration-300 group-hover:scale-110 scale-[1.2] origin-center" 
-  />
-  
-  {/* 2. The Wordmark (The "MAKAAN" Text Image) */}
-  <img 
-    src="/makaan-wordmark.png" 
-    alt="Makaan Wordmark" 
-    className="h-28 w-auto object-contain scale-[1.2] origin-center" 
-  />
-</Link>
+            {/* Logo Section - Left Aligned on Mobile */}
+            <Link to="/" className="flex items-center gap-2 h-full group overflow-visible">
+              {/* 1. The Brandmark (The "M" Icon) */}
+              <img 
+                src="/makaan-brandmark-removebg-preview.png" 
+                alt="Makaan Icon" 
+                // Adjusted mobile height (h-16) and origin (origin-left) to keep it anchored left
+                className="h-16 md:h-28 w-auto object-contain transition-transform duration-300 group-hover:scale-110 md:scale-[1.2] origin-left md:origin-center" 
+              />
+              
+              {/* 2. The Wordmark (The "MAKAAN" Text Image) */}
+              <img 
+                src="/makaan-wordmark.png" 
+                alt="Makaan Wordmark" 
+                className="h-16 md:h-28 w-auto object-contain md:scale-[1.2] origin-left md:origin-center" 
+              />
+            </Link>
             
-            {/* Navigation Links */}
+            {/* Desktop Navigation Links (Hidden on Mobile) */}
             <div className="hidden md:flex items-center gap-8 font-black text-[#2C5F6E] text-[11px] uppercase tracking-[0.15em]">
               <Link to="/" className="hover:text-[#4CAF9A] transition-colors py-8 border-b-4 border-transparent hover:border-[#4CAF9A]">Home</Link>
               <Link to="/living" className="hover:text-[#4CAF9A] transition-colors py-8 border-b-4 border-transparent hover:border-[#4CAF9A]">Living</Link>
               <Link to="/facilities" className="hover:text-[#4CAF9A] transition-colors py-8 border-b-4 border-transparent hover:border-[#4CAF9A]">Facilities</Link>
               <Link to="/contact" className="hover:text-[#4CAF9A] transition-colors py-8 border-b-4 border-transparent hover:border-[#4CAF9A]">Contact Us</Link>
             </div>
+
+            {/* Mobile Hamburger Button (Visible ONLY on Mobile) */}
+            <button 
+              className="md:hidden text-[#2C5F6E] p-2 hover:bg-slate-200 rounded-md transition-colors"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
           </div>
+
+          {/* Mobile Dropdown Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden absolute top-20 left-0 w-full bg-[#F4F6F3] border-b-4 border-[#2C5F6E] flex flex-col items-center py-6 shadow-2xl gap-4 font-black text-[#2C5F6E] text-sm uppercase tracking-widest">
+              <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#4CAF9A] transition-colors w-full text-center py-4">Home</Link>
+              <Link to="/living" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#4CAF9A] transition-colors w-full text-center py-4">Living</Link>
+              <Link to="/facilities" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#4CAF9A] transition-colors w-full text-center py-4">Facilities</Link>
+              <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#4CAF9A] transition-colors w-full text-center py-4">Contact Us</Link>
+            </div>
+          )}
         </nav>
 
         {/* Page Content Area */}
@@ -64,17 +88,20 @@ export default function App() {
           </Routes>
         </main>
 
-        {/* Global Footer - UPDATED WITH NEW LINKS */}
+        {/* Global Footer */}
         <footer className="bg-[#2C5F6E] text-white py-16 mt-auto">
           <div className="max-w-[1200px] mx-auto px-6 grid md:grid-cols-4 gap-12 text-sm">
             
             {/* Contact Number & Address */}
             <div>
-              <img src="/makaan-brandmark.png" alt="Makaan" className="h-12 mb-6 object-contain rounded-md bg-white p-1" />
+              <Link to="/">
+                <img src="/makaan-brandmark.png" alt="Makaan" className="h-12 mb-6 object-contain rounded-md bg-white p-1 hover:opacity-90 transition-opacity" />
+              </Link>
               <p className="text-[#F4F6F3]/70 mb-1">Makaan Housing</p>
               <p className="text-[#F4F6F3]/70 mb-1">Domus Indigo 5</p>
-              <p className="text-[#F4F6F3]/70 mb-6">Dubai Production City (UAE)</p>
-              <p className="font-bold text-[#D4AF6A] text-lg">+971 52 660 2999</p>
+              <p className="text-[#F4F6F3]/70 mb-1">Dubai Production City,</p>
+              <p className="text-[#F4F6F3]/70 mb-6">United Arab Emirates</p>
+              <p className="text-[#F4F6F3]/70">+971 52 660 2999</p>
             </div>
             
             {/* Navigation Links */}
@@ -88,7 +115,6 @@ export default function App() {
             {/* Support Links */}
             <div className="flex flex-col gap-3 font-bold text-[#F4F6F3]/70">
                <h4 className="text-lg font-black uppercase mb-3 text-white">Support</h4>
-               {/* Pointing FAQ to contact for now since we don't have an FAQ page */}
                <Link to="/contact" className="hover:text-[#D4AF6A] transition-colors w-fit">Frequently Asked Questions</Link>
                <Link to="/contact" className="hover:text-[#D4AF6A] transition-colors w-fit">Contact Us</Link>
             </div>

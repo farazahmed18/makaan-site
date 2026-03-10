@@ -1,13 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Monitor, Bed, Bath, Box, Shirt, Wifi, Droplets, Sparkles, UtensilsCrossed, Maximize } from 'lucide-react';
+// Added a few extra icons (Dumbbell, Gamepad2, ShieldCheck, Bus) for the rolling banner
+import { Monitor, Bed, Bath, Box, Shirt, Wifi, Droplets, Sparkles, UtensilsCrossed, Maximize, Dumbbell, Gamepad2, ShieldCheck, Bus } from 'lucide-react';
 
 export default function Living() {
   const rooms = [
     {
       type: "Standard Sharing",
+      // Added Description from feedback
+      description: "A shared room giving you the opportunity to meet new people, complete with ample storage and extra-long workstations.",
       price: "2,700",
-      image: "/room1.jpeg",
+      // Changed single 'image' to an array of 'images' for the scroll effect
+      images: [
+        "/room1.jpeg", 
+        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&q=80&w=800"
+      ],
+      // Added CTA Subtext from feedback
+      ctaSubtext: (
+        <>
+          <span className="block font-bold">Currently AED 2,700 / month</span>
+          <span className="block text-[#4CAF9A] mt-1">Limited Availability - Selling Fast</span>
+        </>
+      ),
       features: [
         { label: "Study Desk", icon: <Monitor size={28} strokeWidth={1.5} /> },
         { label: "Single Bed", icon: <Bed size={28} strokeWidth={1.5} /> },
@@ -22,8 +37,21 @@ export default function Living() {
     },
     {
       type: "Premium Sharing",
-      price: "3,650",
-      image: "/room2.jpeg",
+      // Added Description from feedback
+      description: "A cozy and large room designed to keep you comfortable and free from distractions for you to succeed.",
+      price: "3,600", // Updated to 3,600 per spreadsheet
+      // Changed single 'image' to an array of 'images' for the scroll effect
+      images: [
+        "/room2.jpeg", 
+        "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800"
+      ],
+      // Added CTA Subtext from feedback
+      ctaSubtext: (
+        <>
+          <span className="block font-bold">Currently AED 3,600 / month</span>
+        </>
+      ),
       features: [
         { label: "Bigger Area", icon: <Maximize size={28} strokeWidth={1.5} /> },
         { label: "Study Desk", icon: <Monitor size={28} strokeWidth={1.5} /> },
@@ -39,35 +67,71 @@ export default function Living() {
     }
   ];
 
+  // Data for the new rolling banner
+  const facilitiesBanner = [
+    { label: "High Speed Wifi", icon: <Wifi size={24} strokeWidth={1.5} /> },
+    { label: "24/7 Security", icon: <ShieldCheck size={24} strokeWidth={1.5} /> },
+    { label: "Sports & Fitness", icon: <Dumbbell size={24} strokeWidth={1.5} /> },
+    { label: "Leisure & Gaming", icon: <Gamepad2 size={24} strokeWidth={1.5} /> },
+    { label: "Free Transportation", icon: <Bus size={24} strokeWidth={1.5} /> },
+    { label: "Regular Cleaning", icon: <Sparkles size={24} strokeWidth={1.5} /> },
+    { label: "Shared Kitchens", icon: <UtensilsCrossed size={24} strokeWidth={1.5} /> },
+  ];
+
   return (
     <div className="bg-[#F4F6F3] min-h-screen">
-      {/* RESTORED TEAL/GOLD HEADER */}
-      <section className="py-20 text-center bg-white border-b border-slate-100">
-        <h1 className="text-5xl md:text-7xl font-black text-[#2C5F6E] uppercase tracking-tighter mb-4">
-          Student <span className="text-[#4CAF9A]">Living</span>
-        </h1>
-        <div className="w-24 h-2 bg-[#D4AF6A] mx-auto"></div>
+      
+      {/* 1. UPDATED HERO SECTION WITH IMAGE OVERLAY */}
+      <section className="relative py-32 md:py-48 text-center overflow-hidden border-b border-slate-200">
+        <div className="absolute inset-0 bg-white/75 z-10"></div>
+        {/* Reusing room1 as a background image for the hero */}
+        <img src="/room1.jpeg" alt="Background" className="absolute inset-0 w-full h-full object-cover" />
+        
+        <div className="relative z-20 max-w-5xl mx-auto px-6">
+          <h1 className="text-5xl md:text-7xl font-black text-[#2C5F6E] uppercase tracking-tighter mb-4">
+            Student <span className="text-[#4CAF9A]">Living</span>
+          </h1>
+          <div className="w-24 h-2 bg-[#D4AF6A] mx-auto"></div>
+        </div>
       </section>
 
-      {/* RESTORED ROOM CARDS WITH NEW ICONS */}
+      {/* 2. ROOM CARDS */}
       <section className="max-w-7xl mx-auto py-20 px-6">
         {rooms.map((room, index) => (
           <div key={index} className="flex flex-col lg:flex-row bg-white shadow-2xl mb-20 overflow-hidden rounded-sm">
-            {/* Image Side (Left) */}
-            <div className="lg:w-1/2 h-[500px] lg:h-auto relative">
-              <img src={room.image} alt={room.type} className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute top-6 left-6 bg-[#2C5F6E] text-white px-6 py-2 font-black uppercase tracking-widest text-sm shadow-xl">
+            
+            {/* Image Carousel Side (Left) */}
+            <div className="lg:w-1/2 h-[500px] lg:h-auto relative group">
+              {/* Native Tailwind Horizontal Scroll Container */}
+              <div className="flex overflow-x-auto snap-x snap-mandatory h-full hide-scrollbar w-full">
+                {room.images.map((img, idx) => (
+                  <img key={idx} src={img} alt={`${room.type} view ${idx + 1}`} className="snap-center w-full h-full object-cover flex-shrink-0" />
+                ))}
+              </div>
+              
+              {/* Swipe Indicator */}
+              <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-black/50 backdrop-blur-sm text-white px-5 py-2 font-black uppercase tracking-widest text-[10px] shadow-xl pointer-events-none rounded-full">
+                Swipe to view more
+              </div>
+
+              {/* Price Tag Overlay */}
+              <div className="absolute top-6 left-6 bg-[#2C5F6E] text-white px-6 py-2 font-black uppercase tracking-widest text-sm shadow-xl z-10">
                 AED {room.price} / Month
               </div>
             </div>
 
-            {/* Restored Details Side (Right) */}
+            {/* Details Side (Right) */}
             <div className="lg:w-1/2 p-10 md:p-16 flex flex-col justify-center">
-              <h2 className="text-4xl font-black text-[#2C5F6E] uppercase mb-8 border-b-4 border-[#4CAF9A] inline-block self-start pb-2">
+              <h2 className="text-4xl font-black text-[#2C5F6E] uppercase mb-4 border-b-4 border-[#4CAF9A] inline-block self-start pb-2">
                 {room.type}
               </h2>
               
-              {/* The new Emoji/Icon grid inside the old layout */}
+              {/* NEW: Room Description */}
+              <p className="text-slate-600 font-bold text-base leading-relaxed mb-8">
+                {room.description}
+              </p>
+              
+              {/* Icon Grid */}
               <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-10 gap-x-4 mb-12">
                 {room.features.map((feature, i) => (
                   <div key={i} className="flex flex-col items-center text-center">
@@ -81,16 +145,71 @@ export default function Living() {
                 ))}
               </div>
 
-              <Link 
-                to="/contact" 
-                className="bg-[#2C5F6E] text-white text-center py-6 font-black uppercase tracking-[0.25em] hover:bg-[#D4AF6A] hover:text-[#2C5F6E] transition-all shadow-lg text-lg"
-              >
-                Enquire Now
-              </Link>
+              {/* CTA & Subtext Wrapper */}
+              <div className="mt-auto">
+                <Link 
+                  to="/contact" 
+                  className="bg-[#2C5F6E] block w-full text-white text-center py-6 font-black uppercase tracking-[0.25em] hover:bg-[#D4AF6A] hover:text-[#2C5F6E] transition-all shadow-lg text-lg"
+                >
+                  Enquire Now
+                </Link>
+                
+                {/* NEW: Price Subtext Below CTA */}
+                <div className="mt-5 text-center text-sm uppercase tracking-widest text-slate-600">
+                  {room.ctaSubtext}
+                </div>
+              </div>
+
             </div>
           </div>
         ))}
       </section>
+
+      {/* 3. NEW ROLLING BANNER & CTA */}
+      <section className="bg-white py-20 border-t border-slate-200 overflow-hidden">
+        
+        {/* Infinite CSS Marquee */}
+        <div className="relative flex overflow-hidden bg-[#2C5F6E] py-8 mb-16 shadow-inner">
+          <div className="animate-marquee whitespace-nowrap flex items-center">
+            {/* Duplicating the array 3 times to create a seamless infinite loop */}
+            {[...facilitiesBanner, ...facilitiesBanner, ...facilitiesBanner].map((item, index) => (
+              <div key={index} className="flex items-center text-white mx-8 md:mx-12">
+                <span className="text-[#D4AF6A] mr-3">{item.icon}</span>
+                <span className="font-black uppercase tracking-widest text-lg">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="text-center px-6">
+          <Link to="/facilities" className="text-xl text-[#2C5F6E] font-black uppercase tracking-widest border-b-2 border-[#D4AF6A] pb-1 hover:text-[#4CAF9A] hover:border-[#4CAF9A] transition-all">
+            Explore Our World Class Facilities →
+          </Link>
+        </div>
+      </section>
+
+      {/* INJECTED CSS FOR SCROLLBAR HIDING AND MARQUEE ANIMATION */}
+      <style dangerouslySetInnerHTML={{__html: `
+        /* Hides scrollbar for image carousel */
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        
+        /* Animation for the rolling banner */
+        @keyframes marquee {
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-33.33%); } 
+        }
+        .animate-marquee {
+          animation: marquee 25s linear infinite;
+          min-width: 300%;
+        }
+      `}} />
+
     </div>
   );
 }

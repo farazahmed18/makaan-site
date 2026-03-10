@@ -7,6 +7,8 @@ export default function Contact() {
     lastName: '',
     email: '',
     phone: '',
+    university: '',
+    gender: '',
     source: ''
   });
 
@@ -18,12 +20,19 @@ export default function Contact() {
 
   return (
     <div className="bg-[#F4F6F3] min-h-screen">
-      {/* HEADER - Consistent with "Elevated" Branding */}
-      <section className="py-20 text-center bg-white border-b border-slate-100">
-        <h1 className="text-5xl md:text-7xl font-black text-[#2C5F6E] uppercase tracking-tighter mb-4 leading-none">
-          Contact <span className="text-[#4CAF9A]">Us.</span>
-        </h1>
-        <div className="w-24 h-2 bg-[#D4AF6A] mx-auto"></div>
+      
+      {/* 1. UPDATED HERO SECTION WITH IMAGE OVERLAY */}
+      <section className="relative py-32 md:py-48 text-center overflow-hidden border-b border-slate-200">
+        <div className="absolute inset-0 bg-white/80 z-10"></div>
+        {/* Using a placeholder image - replace with your local file like /room1.jpeg */}
+        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1920" alt="Contact Background" className="absolute inset-0 w-full h-full object-cover" />
+        
+        <div className="relative z-20 max-w-5xl mx-auto px-6">
+          <h1 className="text-5xl md:text-7xl font-black text-[#2C5F6E] uppercase tracking-tighter mb-4 leading-none">
+            Contact <span className="text-[#4CAF9A]">Us.</span>
+          </h1>
+          <div className="w-24 h-2 bg-[#D4AF6A] mx-auto"></div>
+        </div>
       </section>
 
       <section className="max-w-7xl mx-auto py-20 px-6">
@@ -33,8 +42,10 @@ export default function Contact() {
           <div className="lg:w-1/3 space-y-12">
             <div>
               <h2 className="text-3xl font-black text-[#2C5F6E] uppercase mb-6 tracking-tight">Get in Touch</h2>
+              {/* UPDATED TEXT PARAGRAPH */}
               <p className="text-slate-600 font-medium mb-8">
-                Ready to find your student home? Reach out to our team directly or visit our office in Production City.
+                Moving to a new city is difficult. Let us make it easy.<br className="hidden md:block"/>
+                Reach out to our team directly for next steps.
               </p>
             </div>
 
@@ -66,6 +77,8 @@ export default function Contact() {
           {/* RIGHT SIDE: DOCUMENTED INQUIRY FORM */}
           <div className="lg:w-2/3 bg-white p-8 md:p-12 shadow-2xl rounded-sm border-t-8 border-[#2C5F6E]">
             <form onSubmit={handleSubmit} className="space-y-6">
+              
+              {/* ROW 1: Names */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-xs font-black text-[#2C5F6E] uppercase tracking-widest">First Name</label>
@@ -89,6 +102,7 @@ export default function Contact() {
                 </div>
               </div>
 
+              {/* ROW 2: Contact Details */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-xs font-black text-[#2C5F6E] uppercase tracking-widest">Email Address</label>
@@ -112,6 +126,50 @@ export default function Contact() {
                 </div>
               </div>
 
+              {/* ROW 3: NEW FIELDS - University & Gender */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-black text-[#2C5F6E] uppercase tracking-widest">University</label>
+                  <div className="relative">
+                    <select 
+                      required
+                      className="w-full bg-slate-50 border border-slate-200 p-4 focus:outline-none focus:border-[#4CAF9A] transition-all font-bold appearance-none cursor-pointer"
+                      onChange={(e) => setFormData({...formData, university: e.target.value})}
+                    >
+                      <option value="">Please Select</option>
+                      <option value="Heriot-Watt University Dubai">Heriot-Watt University Dubai</option>
+                      <option value="Middlesex University Dubai">Middlesex University Dubai</option>
+                      <option value="University of Wollongong Dubai">University of Wollongong Dubai</option>
+                      <option value="American University of Dubai">American University of Dubai</option>
+                      <option value="De Montfort University Dubai">De Montfort University Dubai</option>
+                      <option value="Murdoch University Dubai">Murdoch University Dubai</option>
+                      <option value="Symbiosis International University">Symbiosis International University</option>
+                      <option value="Hult International Business School">Hult International Business School</option>
+                      <option value="Canadian University Dubai">Canadian University Dubai</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#2C5F6E] text-xs">▼</div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-black text-[#2C5F6E] uppercase tracking-widest">Gender</label>
+                  <div className="relative">
+                    <select 
+                      required
+                      className="w-full bg-slate-50 border border-slate-200 p-4 focus:outline-none focus:border-[#4CAF9A] transition-all font-bold appearance-none cursor-pointer"
+                      onChange={(e) => setFormData({...formData, gender: e.target.value})}
+                    >
+                      <option value="">Please Select</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#2C5F6E] text-xs">▼</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* ROW 4: Source (UPDATED OPTIONS) */}
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-black text-[#2C5F6E] uppercase tracking-widest">How did you hear about us?</label>
                 <div className="relative">
@@ -121,11 +179,11 @@ export default function Contact() {
                     onChange={(e) => setFormData({...formData, source: e.target.value})}
                   >
                     <option value="">Please Select</option>
-                    <option value="social-media">Social Media</option>
-                    <option value="university">University Hub</option>
-                    <option value="friend">Friend / Referral</option>
-                    <option value="search">Online Search</option>
-                    <option value="other">Other</option>
+                    <option value="University Reference">University Reference</option>
+                    <option value="Family/Friends">Family/Friends</option>
+                    <option value="Google Search">Google Search</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="TikTok">TikTok</option>
                   </select>
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#2C5F6E] text-xs">▼</div>
                 </div>
