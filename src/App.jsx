@@ -18,30 +18,25 @@ const ScrollToTop = () => {
 };
 
 export default function App() {
-  // State to control the mobile menu
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <Router>
       <ScrollToTop />
       {/* Main background set to Off-White/Warm White */}
-      <div className="font-sans antialiased text-slate-900 bg-[#F4F6F3] min-h-screen flex flex-col">
+      <div className="font-sans antialiased text-slate-900 bg-[#F4F6F3] min-h-screen flex flex-col relative overflow-x-hidden">
         
         {/* Premium Navbar */}
         <nav className="fixed w-full bg-[#F4F6F3] z-50 border-b-4 border-[#2C5F6E] shadow-sm">
           <div className="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
             
-            {/* Logo Section - Left Aligned on Mobile */}
+            {/* Logo Section */}
             <Link to="/" className="flex items-center gap-2 h-full group overflow-visible">
-              {/* 1. The Brandmark (The "M" Icon) */}
               <img 
                 src="/makaan-brandmark-removebg-preview.png" 
                 alt="Makaan Icon" 
-                // Adjusted mobile height (h-16) and origin (origin-left) to keep it anchored left
                 className="h-16 md:h-28 w-auto object-contain transition-transform duration-300 group-hover:scale-110 md:scale-[1.2] origin-left md:origin-center" 
               />
-              
-              {/* 2. The Wordmark (The "MAKAAN" Text Image) */}
               <img 
                 src="/makaan-wordmark.png" 
                 alt="Makaan Wordmark" 
@@ -49,7 +44,7 @@ export default function App() {
               />
             </Link>
             
-            {/* Desktop Navigation Links (Hidden on Mobile) */}
+            {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center gap-8 font-black text-[#2C5F6E] text-[11px] uppercase tracking-[0.15em]">
               <Link to="/" className="hover:text-[#4CAF9A] transition-colors py-8 border-b-4 border-transparent hover:border-[#4CAF9A]">Home</Link>
               <Link to="/living" className="hover:text-[#4CAF9A] transition-colors py-8 border-b-4 border-transparent hover:border-[#4CAF9A]">Living</Link>
@@ -57,7 +52,7 @@ export default function App() {
               <Link to="/contact" className="hover:text-[#4CAF9A] transition-colors py-8 border-b-4 border-transparent hover:border-[#4CAF9A]">Contact Us</Link>
             </div>
 
-            {/* Mobile Hamburger Button (Visible ONLY on Mobile) */}
+            {/* Mobile Hamburger Button */}
             <button 
               className="md:hidden text-[#2C5F6E] p-2 hover:bg-slate-200 rounded-md transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -77,6 +72,15 @@ export default function App() {
             </div>
           )}
         </nav>
+
+        {/* SITE-WIDE FLOATING CTA */}
+        <Link 
+          to="/contact" 
+          className="fixed right-0 top-1/2 -translate-y-1/2 z-[60] bg-[#2C5F6E] text-white py-3 px-10 font-black uppercase tracking-[0.2em] text-xs md:text-sm hover:bg-[#D4AF6A] hover:text-[#2C5F6E] transition-all shadow-2xl rounded-l-md"
+          style={{ writingMode: 'vertical-rl' }}
+        >
+          Get in touch
+        </Link>
 
         {/* Page Content Area */}
         <main className="flex-grow pt-20">
