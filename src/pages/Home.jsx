@@ -20,7 +20,7 @@ export default function Home() {
     },
     { 
       title: "Safety and Security", 
-      image: "/Security.jpg",
+      image: "Security.jpg",
       desc: "Peace of mind is standard. We provide round-the-clock security and secure access for all residents."
     },
     { 
@@ -45,7 +45,7 @@ export default function Home() {
     },
     { 
       title: "Free Transportation", 
-      image: "/Bus.jpg", // Using your local image temporarily!
+      image: "/Bus.jpg",
       desc: "Convenient shuttle services to key university hubs and local spots are included."
     }
   ];
@@ -76,11 +76,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. WHY US SECTION - MYRIAD MASONRY STYLE */}
+      {/* 2. WHY US SECTION */}
       <section className="bg-white border-t border-gray-200">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
 
-          {/* 1. WHY US Intro Box - Acts as Top-Left Grid Item (Spans 2x2) */}
           <div className="col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 p-10 md:p-16 lg:p-24 flex flex-col justify-center bg-white">
             <h2 className="text-4xl md:text-6xl font-black text-[#2C5F6E] uppercase leading-tight mb-8">
               Why <br/>
@@ -91,57 +90,39 @@ export default function Home() {
             </p>
           </div>
 
-          {/* 2. USP Grid Items with Varying Spans (ALL IMAGES NOW) */}
           {usps.map((usp, index) => {
             let gridClasses = "";
 
             switch(index) {
-              case 0:
-                gridClasses = "col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 min-h-[400px] lg:min-h-full"; // Top right giant image
-                break;
-              case 1:
-                gridClasses = "col-span-1 md:col-span-2 lg:col-span-2 min-h-[350px]"; // Wide image below text
-                break;
-              case 2:
-                gridClasses = "col-span-1 min-h-[350px]"; // Square
-                break;
-              case 3:
-                gridClasses = "col-span-1 min-h-[350px]"; // Square
-                break;
-              case 4:
-                gridClasses = "col-span-1 md:col-span-2 lg:col-span-2 min-h-[350px]"; // Wide
-                break;
-              case 5:
-                gridClasses = "col-span-1 md:col-span-2 lg:col-span-2 min-h-[350px]"; // Wide
-                break;
-              case 6:
-                gridClasses = "col-span-1 min-h-[350px]"; // Square
-                break;
-              case 7:
-                gridClasses = "col-span-1 min-h-[350px]"; // Square
-                break;
-              case 8:
-                gridClasses = "col-span-1 md:col-span-2 lg:col-span-2 min-h-[350px]"; // Wide
-                break;
-              default:
-                gridClasses = "col-span-1 min-h-[350px]";
+              case 0: gridClasses = "col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 min-h-[400px] lg:min-h-full"; break;
+              case 1: gridClasses = "col-span-1 md:col-span-2 lg:col-span-2 min-h-[350px]"; break;
+              case 2: gridClasses = "col-span-1 min-h-[350px]"; break;
+              case 3: gridClasses = "col-span-1 min-h-[350px]"; break;
+              case 4: gridClasses = "col-span-1 md:col-span-2 lg:col-span-2 min-h-[350px]"; break;
+              case 5: gridClasses = "col-span-1 md:col-span-2 lg:col-span-2 min-h-[350px]"; break;
+              case 6: gridClasses = "col-span-1 min-h-[350px]"; break;
+              case 7: gridClasses = "col-span-1 min-h-[350px]"; break;
+              case 8: gridClasses = "col-span-1 md:col-span-2 lg:col-span-2 min-h-[350px]"; break;
+              default: gridClasses = "col-span-1 min-h-[350px]";
             }
 
             return (
-              <div key={index} className={`relative group overflow-hidden ${gridClasses}`}>
-                {/* Standard Image Block */}
-                <img src={usp.image} alt={usp.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <div 
+                key={index} 
+                tabIndex="0" 
+                className={`relative group overflow-hidden cursor-pointer focus:outline-none ${gridClasses}`}
+              >
+                <img src={usp.image} alt={usp.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 group-focus:scale-105" />
                 <div className="absolute inset-0 bg-black/10 z-10"></div>
                 
-                {/* Bottom-aligned title overlay */}
                 <div className="absolute inset-0 z-20 flex items-end p-8 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
                   <h3 className="text-xl md:text-2xl font-black text-white uppercase tracking-wider">
                     {usp.title}
                   </h3>
                 </div>
 
-                {/* Hover Reveal Panel */}
-                <div className="absolute inset-0 bg-[#2C5F6E]/95 z-30 p-8 flex flex-col justify-center text-left transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                {/* ADDED group-focus and group-active touch states here */}
+                <div className="absolute inset-0 bg-[#2C5F6E]/95 z-30 p-8 flex flex-col justify-center text-left transform translate-y-full group-hover:translate-y-0 group-focus:translate-y-0 group-active:translate-y-0 transition-transform duration-500 ease-out">
                   <h3 className="text-xl font-black text-white uppercase tracking-wider mb-4 border-b-2 border-[#D4AF6A] pb-2 inline-block self-start">
                     {usp.title}
                   </h3>
@@ -154,7 +135,6 @@ export default function Home() {
           })}
         </div>
 
-        {/* Explore Facilities Link */}
         <div className="py-20 text-center bg-white">
           <Link to="/facilities" className="text-xl text-[#2C5F6E] font-black uppercase tracking-widest border-b-2 border-[#D4AF6A] pb-1 hover:text-[#4CAF9A] hover:border-[#4CAF9A] transition-all">
             Explore our world-class facilities →
