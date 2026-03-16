@@ -24,14 +24,17 @@ export default function Contact() {
       {/* 1. UPDATED HERO SECTION WITH IMAGE OVERLAY */}
       <section className="relative py-32 md:py-48 text-center overflow-hidden border-b border-slate-200">
         <div className="absolute inset-0 bg-white/80 z-10"></div>
-        {/* Using a placeholder image - replace with your local file like /room1.jpeg */}
         <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1920" alt="Contact Background" className="absolute inset-0 w-full h-full object-cover" />
         
         <div className="relative z-20 max-w-5xl mx-auto px-6">
           <h1 className="text-5xl md:text-7xl font-black text-[#2C5F6E] uppercase tracking-tighter mb-4 leading-none">
-            Contact <span className="text-[#4CAF9A]">Us.</span>
+            Get In <span className="text-[#4CAF9A]">Touch.</span>
           </h1>
-          <div className="w-24 h-2 bg-[#D4AF6A] mx-auto"></div>
+          <div className="w-24 h-2 bg-[#D4AF6A] mx-auto mb-6"></div>
+          {/* Added the new subtitle here as requested */}
+          <p className="text-[#2C5F6E] text-lg md:text-xl font-bold max-w-2xl mx-auto leading-relaxed">
+            Moving to a new city is difficult. Let us make it easy.
+          </p>
         </div>
       </section>
 
@@ -41,27 +44,14 @@ export default function Contact() {
           {/* LEFT SIDE: OFFICIAL CONTACT INFO */}
           <div className="lg:w-1/3 space-y-12">
             <div>
-              <h2 className="text-3xl font-black text-[#2C5F6E] uppercase mb-6 tracking-tight">Get in Touch</h2>
-              {/* UPDATED TEXT PARAGRAPH */}
-              <p className="text-slate-600 font-medium mb-8">
-                Moving to a new city is difficult. Let us make it easy.<br className="hidden md:block"/>
+              {/* Replaced old text with the new requested header */}
+              <h2 className="text-2xl md:text-3xl font-black text-[#2C5F6E] uppercase tracking-tight leading-snug">
                 Reach out to our team directly for next steps.
-              </p>
+              </h2>
             </div>
 
             <div className="space-y-8">
-              <div className="flex items-start gap-5">
-                <div className="bg-[#2C5F6E] text-white p-3 rounded-full shadow-lg">
-                  <MapPin size={24} />
-                </div>
-                <div>
-                  <h4 className="font-black text-[#2C5F6E] uppercase text-sm tracking-widest mb-1">Address</h4>
-                  <p className="text-slate-600 font-bold leading-snug">
-                    Makaan Housing, Domus Indigo 5, <br/> Dubai Production City
-                  </p>
-                </div>
-              </div>
-
+              {/* Phone number moved to first position */}
               <div className="flex items-start gap-5">
                 <div className="bg-[#2C5F6E] text-white p-3 rounded-full shadow-lg">
                   <Phone size={24} />
@@ -69,6 +59,19 @@ export default function Contact() {
                 <div>
                   <h4 className="font-black text-[#2C5F6E] uppercase text-sm tracking-widest mb-1">Contact Number</h4>
                   <p className="text-slate-600 font-bold">+971 52 660 2999</p>
+                </div>
+              </div>
+
+              {/* Address moved to second position */}
+              <div className="flex items-start gap-5">
+                <div className="bg-[#2C5F6E] text-white p-3 rounded-full shadow-lg">
+                  <MapPin size={24} />
+                </div>
+                <div>
+                  <h4 className="font-black text-[#2C5F6E] uppercase text-sm tracking-widest mb-1">Address</h4>
+                  <p className="text-slate-600 font-bold leading-snug">
+                    Makaan Housing, Domus Indigo 5, <br/> Dubai Production City, UAE
+                  </p>
                 </div>
               </div>
             </div>

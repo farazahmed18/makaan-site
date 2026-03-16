@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
-// Import the 4 pages
+// Import the 5 pages
 import Home from './pages/Home';
 import Living from './pages/Living';
 import Facilities from './pages/Facilities';
 import Contact from './pages/Contact';
+import FAQ from './pages/FAQ'; // NEW IMPORT
 
 // ScrollToTop component ensures every new page loads at the top
 const ScrollToTop = () => {
@@ -89,6 +90,7 @@ export default function App() {
             <Route path="/living" element={<Living />} />
             <Route path="/facilities" element={<Facilities />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/faq" element={<FAQ />} /> {/* NEW ROUTE */}
           </Routes>
         </main>
 
@@ -119,7 +121,8 @@ export default function App() {
             {/* Support Links */}
             <div className="flex flex-col gap-3 font-bold text-[#F4F6F3]/70">
                <h4 className="text-lg font-black uppercase mb-3 text-white">Support</h4>
-               <Link to="/contact" className="hover:text-[#D4AF6A] transition-colors w-fit">Frequently Asked Questions</Link>
+               {/* UPDATED LINK TO POINT TO /FAQ */}
+               <Link to="/faq" className="hover:text-[#D4AF6A] transition-colors w-fit">Frequently Asked Questions</Link>
                <Link to="/contact" className="hover:text-[#D4AF6A] transition-colors w-fit">Contact Us</Link>
             </div>
             

@@ -4,46 +4,69 @@ import { Link } from 'react-router-dom';
 export default function Facilities() {
   const facilities = [
     {
-      title: "Sports Facilities",
-      desc: "Stay active and competitive with our multi-purpose sports areas. Whether it's a quick pickup game with friends or a weekend tournament, our facilities are designed to keep you moving and engaged.",
-      image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&q=80&w=1000",
+      title: "Swimming Pool",
+      desc: "Relax poolside, get a tan, hang out with friends or get some laps in at our swimming pool. Residents can take advantage of a beautiful rooftop swimming pool with lounge chairs and lifeguards on duty to ensure carefree leisure.",
+      image: "/swimming-pool.jpg",
     },
     {
-      title: "Fitness & Health",
-      desc: "Achieve your personal best in our fully equipped, state-of-the-art gym. Featuring top-tier cardio machines, free weights, and dedicated stretching zones to support your physical and mental well-being.",
-      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1000",
+      title: "Fitness and Health",
+      desc: "Access our state-of-the-art gym with equipment to facilitate various types of experience. In addition, all students can make use of our outdoor crossfit, swimming pool and various sporting facilities.",
+      image: "/fitness.jpg",
     },
     {
-      title: "Swimming Pools",
-      desc: "Cool off from the heat or get some laps in before class. Our temperature-controlled, resort-style swimming pools offer the perfect oasis for relaxation and leisure right at your doorstep.",
-      image: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&q=80&w=1000",
+      title: "Cricket Nets",
+      desc: "Catch a game of cricket with your friends at our on-site cricket nets whenever you desire.",
+      image: "/cricket.jpg",
     },
     {
       title: "Game Rooms",
-      desc: "Unwind after a long day of lectures in our vibrant game rooms. Challenge your neighbors to a round of billiards, foosball, or table tennis in a space built for connection and friendly competition.",
-      image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&q=80&w=1000",
+      desc: "Table Tennis, Pool, Foosball — we've got it all. Head down to our Game Room and unwind after a long day of classes.",
+      image: "/game-rooms.jpg",
     },
     {
-      title: "Movie & Game Nights",
-      desc: "Immerse yourself in our cinematic entertainment lounges. With plush seating and large screens, it's the ultimate spot for community movie marathons, gaming tournaments, and watching live sports.",
-      image: "https://images.unsplash.com/photo-1585647347384-2593bc35786b?auto=format&fit=crop&q=80&w=1000",
+      title: "Football Courts",
+      desc: "Channel your inner Ronaldo and put your skills on display at our on-site football courts.",
+      image: "/football.jpg",
+    },
+    {
+      title: "The Hub",
+      desc: "The social aspect of our community is paramount to Makaan. At The Hub, students can catch movie-nights, watch Premier League or other sporting games, play chess or even just hang out and mingle with their friends.",
+      image: "/the-hub.jpg",
+    },
+    {
+      title: "Basketball Courts",
+      desc: "Challenge your friends to a pick-up basketball game at our on-site basketball courts and show them who's boss.",
+      image: "/basketball.jpg",
     },
     {
       title: "Recreational Terrace",
-      desc: "Take a breather on our landscaped outdoor terraces. Enjoy stunning views, comfortable lounge seating, and a peaceful environment perfect for quiet study sessions or socializing under the stars.",
-      image: "https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&q=80&w=1000",
+      desc: "Makaan is a hub for young individuals to socialise and encounter unique experiences. Our Recreational Terrace is designed as a chill-out zone, meant to encourage mingling between students within a relaxed and stress-free environment.",
+      image: "/terrace.jpg",
+    },
+    {
+      title: "Student Lounge",
+      desc: "At our Lounge, you will get a chance to build life-long friendships by meeting other like-minded, young people who will expose you to new cultures and different walks of life.",
+      image: "/lounge.jpg",
     },
     {
       title: "Shuttle Services",
-      desc: "Never worry about the commute again. We provide safe, reliable, and complimentary shuttle buses running on a regular schedule to key university campuses and major transit hubs across the city.",
-      image: "/Bus.jpg",
+      desc: "Makaan operates hourly shuttle services to and from Dubai Knowledge Park and other prominent locations, ensuring seamless and convenient transportation for all students.",
+      image: "/Bus.jpg", 
     },
     {
-      // NEW 8TH ITEM TO FILL THE GRID
-      title: "Safety & Security",
-      desc: "Your peace of mind is our top priority. Makaan features round-the-clock security personnel, comprehensive CCTV coverage, and secure key-card access to all residential areas and facilities.",
-      // Premium security/lobby style image
-      image: "/Security.jpg",
+      title: "24x7 Security",
+      desc: "With 24x7 security, we provide a secure environment that ensures our students and their guardians have peace of mind at all times.",
+      image: "Security.jpg", 
+    },
+    {
+      title: "Laundry Rooms",
+      desc: "Convenience is key at Makaan. Laundry rooms are available on-site, with washers, dryers and ironing facilities that students can make use of whenever they desire.",
+      image: "/laundry.jpg",
+    },
+    {
+      title: "Shared Kitchen",
+      desc: "With a shared kitchen and dining area in every community space, cooking, prepping and storing meals has never been easier.",
+      image: "/SharedKitchen1.jpg",
     }
   ];
 
@@ -66,67 +89,53 @@ export default function Facilities() {
         </div>
       </section>
 
-      {/* 2. THE MYRIAD STYLE 4-COLUMN CHECKERBOARD GRID */}
+      {/* 2. STRICT 2-COLOR CHECKERBOARD GRID (Mobile Stacking Fixed) */}
       <section className="w-full">
-        {/* Removed the max-w constraints so it stretches edge to edge again */}
+        {/* We use a grid that acts as a container for our new Wrappers */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full">
           {facilities.map((item, index) => {
             
-            // LOGIC FOR THE CHECKERBOARD PATTERN
+            // Checkerboard image/text order logic
             const isImageFirst = Math.floor(index / 2) % 2 !== 0;
 
-            // LOGIC FOR THE COLORED BLOCKS 
-            let bgClass = "bg-white";
-            let textClass = "text-slate-700";
-            let titleClass = "text-[#2C5F6E]";
+            // Logic to center the very last item if the total count is odd
+            const isCenteredLastItem = (index === facilities.length - 1) && (facilities.length % 2 !== 0);
+
+            // STRICT 2-COLOR LOGIC
+            let bgClass = "bg-[#2C5F6E]"; 
+            let textClass = "text-white/90";
+            let titleClass = "text-white";
             let underlineClass = "border-[#D4AF6A]"; 
 
-            if (index === 1 || index === 5) {
-              bgClass = "bg-[#2C5F6E]";
-              textClass = "text-white/90";
-              titleClass = "text-white";
-              underlineClass = "border-white";
-            }
-            else if (index === 2 || index === 6) {
+            if (index % 2 !== 0) {
+              // Alternating: Dark Slate
               bgClass = "bg-slate-900";
               textClass = "text-slate-300";
               titleClass = "text-white";
-              underlineClass = "border-[#4CAF9A]"; 
+              underlineClass = "border-[#4CAF9A]";
             }
 
-            // TEXT BLOCK COMPONENT (Left-aligned Myriad style restored)
-            const textBlock = (
-              <div className={`p-10 md:p-12 xl:p-16 flex flex-col justify-center aspect-square ${bgClass}`}>
-                <h3 className={`text-xl md:text-2xl font-black uppercase tracking-wider mb-6 border-b-[3px] inline-block self-start pb-2 ${titleClass} ${underlineClass}`}>
-                  {item.title}
-                </h3>
-                <p className={`text-sm md:text-base font-medium leading-relaxed ${textClass}`}>
-                  {item.desc}
-                </p>
-              </div>
-            );
-
-            // IMAGE BLOCK COMPONENT
-            const imageBlock = (
-              <div className="relative aspect-square">
-                <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover" />
-              </div>
-            );
-
             return (
-              <React.Fragment key={index}>
-                {isImageFirst ? (
-                  <>
-                    {imageBlock}
-                    {textBlock}
-                  </>
-                ) : (
-                  <>
-                    {textBlock}
-                    {imageBlock}
-                  </>
-                )}
-              </React.Fragment>
+              // THE WRAPPER: Takes up 2 columns out of 4 on Desktop, 1 on Mobile
+              <div 
+                key={index} 
+                className={`grid grid-cols-1 md:grid-cols-2 col-span-1 md:col-span-2 lg:col-span-2 w-full ${isCenteredLastItem ? 'lg:col-start-2' : ''}`}
+              >
+                {/* IMAGE BLOCK: Forced to order-1 (Top) on Mobile, dynamic order on Desktop */}
+                <div className={`relative h-full w-full min-h-[350px] order-1 ${isImageFirst ? 'md:order-1' : 'md:order-2'}`}>
+                  <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover" />
+                </div>
+
+                {/* TEXT BLOCK: Forced to order-2 (Bottom) on Mobile, dynamic order on Desktop */}
+                <div className={`p-10 md:p-12 xl:p-16 flex flex-col justify-center h-full w-full ${bgClass} order-2 ${isImageFirst ? 'md:order-2' : 'md:order-1'}`}>
+                  <h3 className={`text-xl md:text-2xl font-black uppercase tracking-wider mb-6 border-b-[3px] inline-block self-start pb-2 ${titleClass} ${underlineClass}`}>
+                    {item.title}
+                  </h3>
+                  <p className={`text-sm md:text-base font-medium leading-relaxed ${textClass}`}>
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
             );
           })}
         </div>
