@@ -151,8 +151,8 @@ export default function Living() {
                   Enquire Now
                 </Link>
                 
-                {/* Reduced font size (text-xs) and forced one line (whitespace-nowrap) per feedback */}
-                <div className="mt-5 text-center text-xs uppercase tracking-wider text-slate-600 whitespace-nowrap">
+                {/* FIX: Allowed wrapping on mobile (whitespace-normal) but kept single line on desktop (md:whitespace-nowrap) */}
+                <div className="mt-5 text-center text-[10px] md:text-xs uppercase tracking-wider text-slate-600 whitespace-normal md:whitespace-nowrap leading-relaxed">
                   {room.ctaSubtext}
                 </div>
               </div>
