@@ -67,6 +67,12 @@ export default function Facilities() {
       title: "Shared Kitchen",
       desc: "With a shared kitchen and dining area in every community space, cooking, prepping and storing meals has never been easier.",
       image: "/SharedKitchen1.jpg",
+    },
+    {
+      // NEW 14th ITEM - Perfectly balances the grid!
+      title: "Keycard Access",
+      desc: "Keycard access ensures only authorized students can enter specific rooms and floors, adding an extra layer of security. This controlled entry system helps create a safer and more secure living environment for everyone at Makaan.",
+      image: "keycard.jpg",
     }
   ];
 
@@ -91,7 +97,6 @@ export default function Facilities() {
 
       {/* 2. STRICT 2-COLOR CHECKERBOARD GRID (Mobile Stacking Fixed) */}
       <section className="w-full">
-        {/* We use a grid that acts as a container for our new Wrappers */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full">
           {facilities.map((item, index) => {
             
@@ -99,6 +104,7 @@ export default function Facilities() {
             const isImageFirst = Math.floor(index / 2) % 2 !== 0;
 
             // Logic to center the very last item if the total count is odd
+            // (Note: Since we have 14 items now, this will naturally stay false, leaving a perfect grid!)
             const isCenteredLastItem = (index === facilities.length - 1) && (facilities.length % 2 !== 0);
 
             // STRICT 2-COLOR LOGIC

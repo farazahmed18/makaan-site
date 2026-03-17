@@ -10,7 +10,7 @@ export default function Home() {
     },
     { 
       title: "Live with your Friends", 
-      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000", // <-- New working HD image!
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000", 
       desc: "Our community spaces can accommodate up to 8 people, so if you want to live with your friends just let us know and we will make it happen."
     },
     { 
@@ -59,7 +59,6 @@ export default function Home() {
     <div className="bg-white">
       {/* 1. HERO SECTION */}
       <section className="relative py-32 md:py-48 text-center overflow-hidden">
-        {/* Replaced ugly frosted blocks with an elegant, seamless gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/50 to-[#F4F6F3] z-10"></div>
         
         <img src="https://images.unsplash.com/photo-1526495124232-a04e1849168c?auto=format&fit=crop&q=80&w=2000" alt="Dubai Skyline" className="absolute inset-0 w-full h-full object-cover" />
@@ -69,12 +68,10 @@ export default function Home() {
             Student Living <br/> <span className="text-[#4CAF9A]">Elevated.</span>
           </h1>
           <div className="w-24 h-2 bg-[#D4AF6A] mx-auto mb-10"></div>
-          {/* Removed the cheap rounded box and made the text sleek and medium-weight */}
           <p className="text-[#2C5F6E] text-xl md:text-2xl font-medium max-w-2xl mx-auto mb-12 leading-relaxed">
             Premium housing for Dubai students designed for comfort and success
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            {/* Clean, premium Primary & Secondary button hierarchy */}
             <Link to="/living" className="bg-[#2C5F6E] text-white border-2 border-[#2C5F6E] px-12 py-5 md:px-14 md:py-6 text-sm md:text-base font-black uppercase tracking-[0.2em] hover:bg-transparent hover:text-[#2C5F6E] transition-all shadow-xl">
               See Rooms
             </Link>
@@ -92,7 +89,6 @@ export default function Home() {
           <div className="col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2 p-10 md:p-16 lg:p-24 flex flex-col justify-center bg-white">
             <h2 className="text-4xl md:text-6xl font-black text-[#2C5F6E] uppercase leading-tight mb-6 md:mb-8">
               Why <br className="hidden md:block"/>
-              {/* Added mt-2 for a little breathing room on mobile if it wraps, but hidden md:block keeps it on one line */}
               <span className="text-[#2C5F6E] border-b-[6px] border-[#D4AF6A] pb-2 inline-block md:mt-0"> Us?</span>
             </h2>
             <p className="text-slate-800 font-medium text-lg md:text-xl leading-relaxed">
@@ -145,15 +141,17 @@ export default function Home() {
           })}
         </div>
 
-        <div className="py-20 text-center bg-white">
-          <Link to="/facilities" className="text-xl text-[#2C5F6E] font-black uppercase tracking-widest border-b-2 border-[#D4AF6A] pb-1 hover:text-[#4CAF9A] hover:border-[#4CAF9A] transition-all">
+        <div className="pt-16 pb-8 text-center bg-white px-6">
+          {/* UPDATED MOBILE CTA SPACING */}
+          <Link to="/facilities" className="block md:inline-block text-lg md:text-xl text-[#2C5F6E] font-black uppercase tracking-widest border-b-2 border-[#D4AF6A] pb-2 hover:text-[#4CAF9A] hover:border-[#4CAF9A] transition-all leading-loose md:leading-normal">
             Explore our world-class facilities →
           </Link>
         </div>
       </section>
 
       {/* 3. FINAL CTA */}
-      <section className="py-24 text-center bg-white border-t border-slate-100">
+      {/* Reduced top padding from pt-24 to pt-10 to close the gap */}
+      <section className="pt-10 pb-24 text-center bg-white border-t border-slate-100">
           <h2 className="text-4xl md:text-6xl font-black text-[#2C5F6E] uppercase tracking-tight mb-8">
             Experience it <span className="text-[#4CAF9A]">Yourself</span>
           </h2>

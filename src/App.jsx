@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import Living from './pages/Living';
 import Facilities from './pages/Facilities';
 import Contact from './pages/Contact';
-import FAQ from './pages/FAQ'; // NEW IMPORT
+import FAQ from './pages/FAQ';
 
 // ScrollToTop component ensures every new page loads at the top
 const ScrollToTop = () => {
@@ -16,6 +16,23 @@ const ScrollToTop = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
   return null;
+};
+
+// NEW: Smart Floating Button component that hides itself on the Contact page
+const FloatingContactButton = () => {
+  const { pathname } = useLocation();
+  
+  if (pathname === '/contact') return null;
+
+  return (
+    <Link 
+      to="/contact" 
+      className="fixed right-0 top-1/2 -translate-y-1/2 z-[60] bg-[#2C5F6E] text-white py-3 px-10 font-black uppercase tracking-[0.2em] text-xs md:text-sm hover:bg-[#D4AF6A] hover:text-[#2C5F6E] transition-all shadow-2xl rounded-l-md"
+      style={{ writingMode: 'vertical-rl' }}
+    >
+      Get in touch
+    </Link>
+  );
 };
 
 export default function App() {
@@ -74,14 +91,8 @@ export default function App() {
           )}
         </nav>
 
-        {/* SITE-WIDE FLOATING CTA */}
-        <Link 
-          to="/contact" 
-          className="fixed right-0 top-1/2 -translate-y-1/2 z-[60] bg-[#2C5F6E] text-white py-3 px-10 font-black uppercase tracking-[0.2em] text-xs md:text-sm hover:bg-[#D4AF6A] hover:text-[#2C5F6E] transition-all shadow-2xl rounded-l-md"
-          style={{ writingMode: 'vertical-rl' }}
-        >
-          Get in touch
-        </Link>
+        {/* SITE-WIDE FLOATING CTA - Now using the smart component */}
+        <FloatingContactButton />
 
         {/* Page Content Area */}
         <main className="flex-grow pt-20">
@@ -90,7 +101,7 @@ export default function App() {
             <Route path="/living" element={<Living />} />
             <Route path="/facilities" element={<Facilities />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/faq" element={<FAQ />} /> {/* NEW ROUTE */}
+            <Route path="/faq" element={<FAQ />} />
           </Routes>
         </main>
 
@@ -121,7 +132,6 @@ export default function App() {
             {/* Support Links */}
             <div className="flex flex-col gap-3 font-bold text-[#F4F6F3]/70">
                <h4 className="text-lg font-black uppercase mb-3 text-white">Support</h4>
-               {/* UPDATED LINK TO POINT TO /FAQ */}
                <Link to="/faq" className="hover:text-[#D4AF6A] transition-colors w-fit">Frequently Asked Questions</Link>
                <Link to="/contact" className="hover:text-[#D4AF6A] transition-colors w-fit">Contact Us</Link>
             </div>
