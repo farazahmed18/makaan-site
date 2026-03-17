@@ -68,8 +68,9 @@ export default function Home() {
             Student Living <br/> <span className="text-[#4CAF9A]">Elevated.</span>
           </h1>
           <div className="w-24 h-2 bg-[#D4AF6A] mx-auto mb-10"></div>
-          <p className="text-[#2C5F6E] text-xl md:text-2xl font-medium max-w-2xl mx-auto mb-12 leading-relaxed">
-            Premium housing for Dubai students designed for comfort and success
+          {/* UPDATED: Added comma, period, and matched the text-lg md:text-xl font-bold styling from Facilities */}
+          <p className="text-[#2C5F6E] text-lg md:text-xl max-w-2xl mx-auto font-bold px-6 mb-12 leading-relaxed">
+            Premium housing for Dubai students, designed for comfort and success.
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
             <Link to="/living" className="bg-[#2C5F6E] text-white border-2 border-[#2C5F6E] px-12 py-5 md:px-14 md:py-6 text-sm md:text-base font-black uppercase tracking-[0.2em] hover:bg-transparent hover:text-[#2C5F6E] transition-all shadow-xl">
