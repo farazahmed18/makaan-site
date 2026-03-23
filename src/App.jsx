@@ -118,6 +118,11 @@ export default function App() {
               <p className="text-[#F4F6F3]/70 mb-1">Domus Indigo 5</p>
               <p className="text-[#F4F6F3]/70 mb-1">Dubai Production City,</p>
               <p className="text-[#F4F6F3]/70 mb-6">United Arab Emirates</p>
+              
+              {/* NEW: Added Email link here in the footer */}
+              <a href="mailto:team@makaan.ae" className="block text-white hover:text-[#D4AF6A] transition-colors mb-2 font-bold tracking-wider">
+                team@makaan.ae
+              </a>
               <p className="text-[#F4F6F3]/70">+971 52 660 2999</p>
             </div>
             

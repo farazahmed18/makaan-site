@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Send } from 'lucide-react';
+import { MapPin, Phone, Send, Mail } from 'lucide-react'; // Added Mail icon here
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -51,7 +51,21 @@ export default function Contact() {
             </div>
 
             <div className="space-y-8">
-              {/* Phone number moved to first position */}
+              
+              {/* NEW: Email Address moved above phone number as requested */}
+              <div className="flex items-start gap-5">
+                <div className="bg-[#2C5F6E] text-white p-3 rounded-full shadow-lg">
+                  <Mail size={24} />
+                </div>
+                <div>
+                  <h4 className="font-black text-[#2C5F6E] uppercase text-sm tracking-widest mb-1">Email Us</h4>
+                  <a href="mailto:team@makaan.ae" className="text-slate-600 font-bold hover:text-[#4CAF9A] transition-colors">
+                    team@makaan.ae
+                  </a>
+                </div>
+              </div>
+
+              {/* Phone number */}
               <div className="flex items-start gap-5">
                 <div className="bg-[#2C5F6E] text-white p-3 rounded-full shadow-lg">
                   <Phone size={24} />
@@ -62,7 +76,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Address moved to second position */}
+              {/* Address */}
               <div className="flex items-start gap-5">
                 <div className="bg-[#2C5F6E] text-white p-3 rounded-full shadow-lg">
                   <MapPin size={24} />
