@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Send, Mail } from 'lucide-react'; // Added Mail icon here
+import { MapPin, Phone, Send, Mail } from 'lucide-react'; 
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -12,10 +12,42 @@ export default function Contact() {
     source: ''
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Submitted:', formData);
-    alert('Thank you! Your inquiry has been sent to the Makaan team.');
+    
+    // Web3Forms integration with your live key
+    const submissionData = {
+      ...formData,
+      access_key: "81bc4db3-dfba-4c47-a1ec-d081017075b6", 
+      subject: "New Makaan Housing Inquiry",
+      from_name: "Makaan Website Form"
+    };
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(submissionData)
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        alert('Thank you! Your inquiry has been sent directly to the Makaan team.');
+        // This clears the form after a successful submit
+        setFormData({ firstName: '', lastName: '', email: '', phone: '', university: '', gender: '', source: '' });
+        // Reset the form fields in the DOM
+        e.target.reset();
+      } else {
+        alert('Something went wrong. Please try emailing us directly at team@makaan.ae');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Network error. Please try emailing us directly at team@makaan.ae');
+    }
   };
 
   return (
