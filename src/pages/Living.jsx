@@ -8,7 +8,7 @@ export default function Living() {
     {
       type: "Standard Sharing",
       description: "A shared room giving you the opportunity to meet new people, complete with ample storage and extra-long workstations.",
-      price: "2,700",
+      price: "2,550",
       images: [
         "/SharedRoom1.jpg", 
         "/SharedRoom3.jpg",
@@ -16,7 +16,7 @@ export default function Living() {
       ],
       ctaSubtext: (
         <>
-          <span className="block font-bold">Currently AED 2,700 / month per student (VAT inclusive)</span>
+          <span className="block font-bold">Currently AED 2,550 / month per student (plus 5% VAT)</span>
           <span className="block text-[#4CAF9A] mt-1">Limited Availability - Selling Fast</span>
         </>
       ),
@@ -41,7 +41,7 @@ export default function Living() {
     {
       type: "Premium Sharing",
       description: "A cozy and large room designed to keep you comfortable and free from distractions for you to succeed.",
-      price: "3,600", 
+      price: "3,400", 
       images: [
         "/Room4.jpg", 
         "/Room5.jpg",
@@ -49,7 +49,7 @@ export default function Living() {
       ],
       ctaSubtext: (
         <>
-          <span className="block font-bold">Currently AED 3,600 / month per student (VAT inclusive)</span>
+          <span className="block font-bold">Currently AED 3,400 / month per student (plus 5% VAT)</span>
         </>
       ),
       features: [
