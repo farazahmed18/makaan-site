@@ -195,6 +195,8 @@ export default function Contact() {
                       <option value="Symbiosis International University">Symbiosis International University</option>
                       <option value="Hult International Business School">Hult International Business School</option>
                       <option value="Canadian University Dubai">Canadian University Dubai</option>
+                      <option value="University of Europe Dubai">University of Europe Dubai</option>
+                      <option value="SAE Institute Dubai">SAE Institute Dubai</option>
                       <option value="Other">Other</option>
                     </select>
                     <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#2C5F6E] text-xs">▼</div>
