@@ -9,6 +9,8 @@ export default function Contact() {
     phone: '',
     university: '',
     gender: '',
+    startDate: '', // NEW FIELD ADDED
+    duration: '',  // NEW FIELD ADDED
     source: ''
   });
 
@@ -37,8 +39,8 @@ export default function Contact() {
       
       if (result.success) {
         alert('Thank you! Your inquiry has been sent directly to the Makaan team.');
-        // This clears the form after a successful submit
-        setFormData({ firstName: '', lastName: '', email: '', phone: '', university: '', gender: '', source: '' });
+        // Clear the form after a successful submit (Added start/duration here too)
+        setFormData({ firstName: '', lastName: '', email: '', phone: '', university: '', gender: '', startDate: '', duration: '', source: '' });
         // Reset the form fields in the DOM
         e.target.reset();
       } else {
@@ -63,7 +65,6 @@ export default function Contact() {
             Get In <span className="text-[#4CAF9A]">Touch.</span>
           </h1>
           <div className="w-24 h-2 bg-[#D4AF6A] mx-auto mb-6"></div>
-          {/* Added the new subtitle here as requested */}
           <p className="text-[#2C5F6E] text-lg md:text-xl font-bold max-w-2xl mx-auto leading-relaxed">
             Moving to a new city is difficult. Let us make it easy.
           </p>
@@ -76,15 +77,13 @@ export default function Contact() {
           {/* LEFT SIDE: OFFICIAL CONTACT INFO */}
           <div className="lg:w-1/3 space-y-12">
             <div>
-              {/* Replaced old text with the new requested header */}
               <h2 className="text-2xl md:text-3xl font-black text-[#2C5F6E] uppercase tracking-tight leading-snug">
                 Reach out to our team directly for next steps.
               </h2>
             </div>
 
             <div className="space-y-8">
-              
-              {/* NEW: Email Address moved above phone number as requested */}
+              {/* Email Address */}
               <div className="flex items-start gap-5">
                 <div className="bg-[#2C5F6E] text-white p-3 rounded-full shadow-lg">
                   <Mail size={24} />
@@ -175,7 +174,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* ROW 3: NEW FIELDS - University & Gender */}
+              {/* ROW 3: University & Gender */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-xs font-black text-[#2C5F6E] uppercase tracking-widest">University</label>
@@ -220,7 +219,52 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* ROW 4: Source (UPDATED OPTIONS) */}
+              {/* ROW 3.5: NEW FIELDS - Start Date & Duration */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-black text-[#2C5F6E] uppercase tracking-widest">Start Date</label>
+                  <div className="relative">
+                    <select 
+                      required
+                      className="w-full bg-slate-50 border border-slate-200 p-4 focus:outline-none focus:border-[#4CAF9A] transition-all font-bold appearance-none cursor-pointer"
+                      onChange={(e) => setFormData({...formData, startDate: e.target.value})}
+                    >
+                      <option value="">Please Select</option>
+                      <option value="August">August</option>
+                      <option value="September">September</option>
+                      <option value="October">October</option>
+                      <option value="January">January</option>
+                      <option value="February">February</option>
+                      <option value="March">March</option>
+                      <option value="April">April</option>
+                      <option value="May">May</option>
+                    </select>
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#2C5F6E] text-xs">▼</div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-black text-[#2C5F6E] uppercase tracking-widest">Duration</label>
+                  <div className="relative">
+                    <select 
+                      required
+                      className="w-full bg-slate-50 border border-slate-200 p-4 focus:outline-none focus:border-[#4CAF9A] transition-all font-bold appearance-none cursor-pointer"
+                      onChange={(e) => setFormData({...formData, duration: e.target.value})}
+                    >
+                      <option value="">Please Select</option>
+                      <option value="4 months">4 months</option>
+                      <option value="5 months">5 months</option>
+                      <option value="6 months">6 months</option>
+                      <option value="8 months">8 months</option>
+                      <option value="10 months">10 months</option>
+                      <option value="12 months">12 months</option>
+                    </select>
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#2C5F6E] text-xs">▼</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* ROW 4: Source */}
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-black text-[#2C5F6E] uppercase tracking-widest">How did you hear about us?</label>
                 <div className="relative">

@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
-// Import the 5 pages
+// Import the 6 pages
 import Home from './pages/Home';
 import Living from './pages/Living';
 import Facilities from './pages/Facilities';
+import Location from './pages/Location'; // NEW PHASE 2 IMPORT
 import Contact from './pages/Contact';
 import FAQ from './pages/FAQ';
 
@@ -18,7 +19,7 @@ const ScrollToTop = () => {
   return null;
 };
 
-// NEW: Smart Floating Button component that hides itself on the Contact page
+// Smart Floating Button component that hides itself on the Contact page
 const FloatingContactButton = () => {
   const { pathname } = useLocation();
   
@@ -67,6 +68,7 @@ export default function App() {
               <Link to="/" className="hover:text-[#4CAF9A] transition-colors py-8 border-b-4 border-transparent hover:border-[#4CAF9A]">Home</Link>
               <Link to="/living" className="hover:text-[#4CAF9A] transition-colors py-8 border-b-4 border-transparent hover:border-[#4CAF9A]">Living</Link>
               <Link to="/facilities" className="hover:text-[#4CAF9A] transition-colors py-8 border-b-4 border-transparent hover:border-[#4CAF9A]">Facilities</Link>
+              <Link to="/location" className="hover:text-[#4CAF9A] transition-colors py-8 border-b-4 border-transparent hover:border-[#4CAF9A]">Location</Link>
               <Link to="/contact" className="hover:text-[#4CAF9A] transition-colors py-8 border-b-4 border-transparent hover:border-[#4CAF9A]">Contact Us</Link>
             </div>
 
@@ -86,12 +88,13 @@ export default function App() {
               <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#4CAF9A] transition-colors w-full text-center py-4">Home</Link>
               <Link to="/living" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#4CAF9A] transition-colors w-full text-center py-4">Living</Link>
               <Link to="/facilities" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#4CAF9A] transition-colors w-full text-center py-4">Facilities</Link>
+              <Link to="/location" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#4CAF9A] transition-colors w-full text-center py-4">Location</Link>
               <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#4CAF9A] transition-colors w-full text-center py-4">Contact Us</Link>
             </div>
           )}
         </nav>
 
-        {/* SITE-WIDE FLOATING CTA - Now using the smart component */}
+        {/* SITE-WIDE FLOATING CTA */}
         <FloatingContactButton />
 
         {/* Page Content Area */}
@@ -100,6 +103,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/living" element={<Living />} />
             <Route path="/facilities" element={<Facilities />} />
+            <Route path="/location" element={<Location />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/faq" element={<FAQ />} />
           </Routes>
@@ -119,7 +123,6 @@ export default function App() {
               <p className="text-[#F4F6F3]/70 mb-1">Dubai Production City,</p>
               <p className="text-[#F4F6F3]/70 mb-6">United Arab Emirates</p>
               
-              {/* NEW: Added Email link here in the footer */}
               <a href="mailto:team@makaan.ae" className="block text-white hover:text-[#D4AF6A] transition-colors mb-2 font-bold tracking-wider">
                 team@makaan.ae
               </a>
@@ -132,6 +135,7 @@ export default function App() {
               <Link to="/" className="hover:text-[#D4AF6A] transition-colors w-fit">Why Us</Link>
               <Link to="/living" className="hover:text-[#D4AF6A] transition-colors w-fit">Living</Link>
               <Link to="/facilities" className="hover:text-[#D4AF6A] transition-colors w-fit">Facilities</Link>
+              <Link to="/location" className="hover:text-[#D4AF6A] transition-colors w-fit">Location</Link>
             </div>
             
             {/* Support Links */}
