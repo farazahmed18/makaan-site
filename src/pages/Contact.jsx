@@ -21,7 +21,7 @@ export default function Contact() {
     const submissionData = {
       ...formData,
       access_key: "81bc4db3-dfba-4c47-a1ec-d081017075b6", 
-      subject: "New Makaan Housing Inquiry",
+      subject: `New Housing Inquiry: ${formData.email}`, // <--- THIS IS THE UPDATED LINE
       from_name: "Makaan Website Form"
     };
 
