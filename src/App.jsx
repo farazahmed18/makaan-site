@@ -146,8 +146,8 @@ export default function App() {
             </div>
             
             {/* Legal Entity & Copyright Column */}
-            <div className="flex flex-col justify-end gap-2">
-               <p className="text-[10px] text-[#F4F6F3]/50 font-black uppercase tracking-widest">
+            <div className="flex flex-col justify-end gap-2 md:items-end">
+               <p className="text-[10px] text-[#F4F6F3]/50 font-black uppercase tracking-widest whitespace-nowrap">
                  Owned by Makaan Homes Living FZ-LLC
                </p>
                <p className="text-xs text-[#F4F6F3]/50 font-bold uppercase tracking-widest">
