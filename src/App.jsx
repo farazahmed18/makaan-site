@@ -145,8 +145,14 @@ export default function App() {
                <Link to="/contact" className="hover:text-[#D4AF6A] transition-colors w-fit">Contact Us</Link>
             </div>
             
-            <div className="flex flex-col justify-end">
-               <p className="text-xs text-[#F4F6F3]/50 font-bold uppercase tracking-widest">Makaan © 2026</p>
+            {/* Legal Entity & Copyright Column */}
+            <div className="flex flex-col justify-end gap-2">
+               <p className="text-[10px] text-[#F4F6F3]/50 font-black uppercase tracking-widest">
+                 Owned by Makaan Homes Living FZ-LLC
+               </p>
+               <p className="text-xs text-[#F4F6F3]/50 font-bold uppercase tracking-widest">
+                 Makaan © 2026
+               </p>
             </div>
           </div>
         </footer>
